@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client_id: MyString
+  integer: MyString
+  notes: MyString
+  date: 2020-05-20 14:38:57
+  startDate: 2020-05-20 14:38:57
+  endDate: 2020-05-20 14:38:57
+  user_id: 1
+
+two:
+  client_id: MyString
+  integer: MyString
+  notes: MyString
+  date: 2020-05-20 14:38:57
+  startDate: 2020-05-20 14:38:57
+  endDate: 2020-05-20 14:38:57
+  user_id: 1
