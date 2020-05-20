@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  # before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: [:destroy]
   before_action :get_user_token, only: [:index, :create, :update]
   skip_before_action :verify_authenticity_token, :only => [:index, :create, :update, :destroy]
 
@@ -28,22 +28,21 @@ class ClientsController < ApplicationController
       @client.user_id = @current_user_id
 
         if @client.save
-          render json: clients_by_user
+          render json: clients_by_user, status: :created
         else
           render json: @client.errors, status: :unprocessable_entity
         end
     end
   end
 
-  # PATCH/PUT /clients/:id
+  # PATCH/PUT /clients/
   def update
-    respond_to do |format|
-      if @client.update(client_params)
-        format.json { render :show, status: :ok, location: @client }
+    puts client_params
+      if Client.where(id: client_params[:id]).update(client_params)
+        render json: clients_by_user, status: :ok
       else
-        format.json { render json: @client.errors, status: :unprocessable_entity }
+       render json: @client.errors, status: :unprocessable_entity 
       end
-    end
   end
 
   # DELETE /clients/:id
@@ -63,6 +62,6 @@ class ClientsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_params
-      params.permit(:firstName, :lastName, :email, :phone, :gender )
+      params.permit(:firstName, :lastName, :email, :phone, :gender, :id )
     end
 end

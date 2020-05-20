@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   get '/clients' => 'clients#index'
   post '/clients' => 'clients#create'
-  put '/clients/:id' => 'clients#update'
+  put '/clients' => 'clients#update'
   delete '/clients/:id' => 'clients#destroy'
 
 end
