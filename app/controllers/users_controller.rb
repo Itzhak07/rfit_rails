@@ -47,16 +47,16 @@ class UsersController < ApplicationController
 
   # GET /auth/auth_user
   def get_user
-    render json: @user
+    render json: @current_user
   end
 
 
   #PUT /users/update (Update User)
   def update
-    if @user.update(user_params)
-      render json: @user, status: :ok
+    if @current_user.update(user_params)
+      render json: @current_user, status: :ok
       else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @current_user.errors, status: :unprocessable_entity
     end
   end
 

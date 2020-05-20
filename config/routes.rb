@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'workouts/index'
+  get 'workouts/create'
+  get 'workouts/destroy'
+  get 'workouts/update'
   # resources :clients
   # resources :users
   root 'home#index'

@@ -22,12 +22,12 @@ class ClientsController < ApplicationController
     # puts client_params
     # @client = Client.new(client_params)
 
-    @client = Client.new
-      @client.firstName = client_params[:firstName]
-      @client.lastName = client_params[:lastName]
-      @client.email = client_params[:email]
-      @client.phone = client_params[:phone]
-      @client.gender = client_params[:gender]
+    @client = Client.new(client_params)
+      # @client.firstName = client_params[:firstName]
+      # @client.lastName = client_params[:lastName]
+      # @client.email = client_params[:email]
+      # @client.phone = client_params[:phone]
+      # @client.gender = client_params[:gender]
       @client.user_id = @user_id
 
     respond_to do |format|
