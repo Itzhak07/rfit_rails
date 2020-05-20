@@ -1,42 +1,37 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: [:show, :edit, :update, :destroy]
-  before_action  :set_auth_user_id, only: [:index, :create, :update]
+  # before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :get_user_token, only: [:index, :create, :update]
   skip_before_action :verify_authenticity_token, :only => [:index, :create, :update, :destroy]
 
   # GET /clients
   def index
-    puts @user_id
-    @clients = Client.find_by user_id: @user_id
-
-    render json: @clients
-
+    render json: clients_by_user
   end
 
   # GET /clients/:id
   def show
   end
 
+  def clients_by_user
+    clients = Client.where(user_id: @current_user_id)
+    clients
+  end
+
 
   # POST /clients
   def create
-    # puts client_params
-    # @client = Client.new(client_params)
-
-    @client = Client.new(client_params)
-      # @client.firstName = client_params[:firstName]
-      # @client.lastName = client_params[:lastName]
-      # @client.email = client_params[:email]
-      # @client.phone = client_params[:phone]
-      # @client.gender = client_params[:gender]
-      @client.user_id = @user_id
-
-    respond_to do |format|
-      if @client.save
-        format.json { render json :show, status: :created, location: @client }
+    is_exist = Client.where(user_id: @current_user_id, email:client_params[:email] ).exists?
+   if is_exist
+     render json: {msg: 'User is already exist'}
       else
-        format.html { render :new }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
+      @client = Client.new(client_params)
+      @client.user_id = @current_user_id
+
+        if @client.save
+          render json: clients_by_user
+        else
+          render json: @client.errors, status: :unprocessable_entity
+        end
     end
   end
 
@@ -65,19 +60,6 @@ class ClientsController < ApplicationController
       @client = Client.find(params[:id])
     end
 
-
-    # GET user_id from token
-    def set_auth_user_id
-      if request.headers['x-auth-token'].present?
-        @token = request.headers['x-auth-token']
-        puts @token + " TOKEN"
-        @decoded = JsonWebToken.decode(@token)
-        puts @decoded + " id"
-        # @user_id = @decoded[0]['user']['id']
-       else
-        render json: { msg: "Token is not valid" }, status: :unauthorized
-      end
-    end
 
     # Only allow a list of trusted parameters through.
     def client_params
