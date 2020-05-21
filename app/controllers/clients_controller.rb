@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: [:destroy]
+  # before_action :set_client, only: [:show, :edit, :update, :destroy]
   before_action :get_user_token, only: [:index, :create, :update]
   skip_before_action :verify_authenticity_token, :only => [:index, :create, :update, :destroy]
 
@@ -37,22 +37,15 @@ class ClientsController < ApplicationController
 
   # PATCH/PUT /clients/
   def update
-    puts client_params
+
       if Client.where(id: client_params[:id]).update(client_params)
         render json: clients_by_user, status: :ok
       else
        render json: @client.errors, status: :unprocessable_entity 
       end
+   
   end
-
-  # DELETE /clients/:id
-  def destroy
-    @client.destroy
-    respond_to do |format|
-      format.json { head :no_content }
-    end
-  end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
@@ -62,6 +55,6 @@ class ClientsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_params
-      params.permit(:firstName, :lastName, :email, :phone, :gender, :id )
+      params.permit(:firstName, :lastName, :email, :phone, :gender, :id, :status )
     end
 end

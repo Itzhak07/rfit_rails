@@ -1,6 +1,7 @@
 class Client < ApplicationRecord
-    belongs_to :user
     has_many :workouts
+    has_many :clients, through: :workouts
+
 
     validates :email, presence: true
     validates :firstName, presence: true

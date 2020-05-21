@@ -1,8 +1,7 @@
 class CreateWorkouts < ActiveRecord::Migration[6.0]
   def change
     create_table :workouts do |t|
-      t.string :client_id
-      t.string :integer
+      t.integer :client_id
       t.string :notes
       t.datetime :date
       t.datetime :startDate

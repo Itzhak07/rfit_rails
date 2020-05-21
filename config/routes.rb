@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-  get 'workouts/index'
-  get 'workouts/create'
-  get 'workouts/destroy'
-  get 'workouts/update'
-  # resources :clients
-  # resources :users
+
   root 'home#index'
 
   get '/users' => 'users#index'
@@ -22,6 +17,10 @@ Rails.application.routes.draw do
   get '/clients' => 'clients#index'
   post '/clients' => 'clients#create'
   put '/clients' => 'clients#update'
-  delete '/clients/:id' => 'clients#destroy'
+
+  get '/workouts' => 'workouts#index'
+  post '/workouts' => 'workouts#create'
+  delete '/workouts/delete/:id' =>'workouts#destroy'
+  put '/workouts' => 'workouts#update'
 
 end

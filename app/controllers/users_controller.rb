@@ -12,8 +12,8 @@ class UsersController < ApplicationController
 
   # GET /users/{id}
   def show
-    @user = User.includes(:clients).find(params[:id])
-    render json: [@user,clients: @user.clients], status: :ok
+    @user = User.includes(:clients, :workouts).find(params[:id])
+    render json: [@user,clients: @user.clients,workouts: @user.workouts], status: :ok
   end
 
 
