@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  # before_action :set_user, only: [:show, :edit, :update, :destroy]
-  # before_action  :set_auth_user, only: [:get_user, :update, :update, :destroy]
   before_action :get_user_token, only: [:get_user, :update, :destroy]
   skip_before_action :verify_authenticity_token, :only => [:create, :update, :destroy, :login, :get_user]
 
@@ -13,7 +11,9 @@ class UsersController < ApplicationController
   # GET /users/{id}
   def show
     @user = User.includes(:clients, :workouts).find(params[:id])
-    render json: [@user,clients: @user.clients,workouts: @user.workouts], status: :ok
+    # render json: [@user,clients: @user.clients,workouts: @user.workouts], status: :ok
+
+    render json: @user
   end
 
 

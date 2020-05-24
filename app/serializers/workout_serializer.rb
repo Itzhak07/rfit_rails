@@ -10,7 +10,7 @@ class WorkoutSerializer < ActiveModel::Serializer
       email: self.object.client.email,
       phone: self.object.client.phone,
       gender: self.object.client.gender,
-      status: self.object.client.status
+      status: self.object.client.status,
     }
   end
   
