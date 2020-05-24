@@ -1,6 +1,8 @@
 class WorkoutSerializer < ActiveModel::Serializer
-  attributes :id, :notes, :date, :startDate, :endDate, :client
+  attributes :id, :notes, :date, :startDate, :endDate, :client, :work_sets
   has_one :client
+  has_many :work_sets
+
 
   def client
     {
@@ -13,5 +15,6 @@ class WorkoutSerializer < ActiveModel::Serializer
       status: self.object.client.status,
     }
   end
+
   
 end

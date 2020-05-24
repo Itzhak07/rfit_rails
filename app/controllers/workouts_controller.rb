@@ -10,9 +10,16 @@ class WorkoutsController < ApplicationController
 
   def workouts_by_user
 
-    workouts = Workout.where(user_id: @current_user_id)
+    workouts = Workout.includes(:client,:work_sets).where(user_id: @current_user_id)
 
     render json: workouts
+  end
+
+  def show
+    @workout = Workout.includes(:client, :work_sets).find(params[:id])
+    # render json: [@user,clients: @user.clients,workouts: @user.workouts], status: :ok
+
+    render json: @workout
   end
 
   def create

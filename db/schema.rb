@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_081410) do
+ActiveRecord::Schema.define(version: 2020_05_24_113024) do
 
   create_table "clients", force: :cascade do |t|
     t.string "firstName"
@@ -26,6 +26,24 @@ ActiveRecord::Schema.define(version: 2020_05_21_081410) do
     t.string "avatar", default: "http://www.gravatar.com/avatar/b642b4217b34b1e8d3bd915fc65c4452?s=200&r=pg&d=mm", null: false
   end
 
+  create_table "movements", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "video_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sets", force: :cascade do |t|
+    t.integer "movement_id"
+    t.integer "workout_id"
+    t.integer "rounds"
+    t.integer "reps"
+    t.integer "weight"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "firstName"
     t.string "lastName"
@@ -34,6 +52,16 @@ ActiveRecord::Schema.define(version: 2020_05_21_081410) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "work_sets", force: :cascade do |t|
+    t.integer "movement_id"
+    t.integer "workout_id"
+    t.integer "rounds"
+    t.integer "reps"
+    t.integer "weight"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "workouts", force: :cascade do |t|
