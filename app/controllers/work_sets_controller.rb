@@ -19,9 +19,16 @@ class WorkSetsController < ApplicationController
   end
 
   def show
+  render json: @set
+
   end
 
   def update
+    if @set.update(workset_params)
+      :index
+    else
+      render json: @set.errors, status: :unprocessable_entity 
+    end
   end
 
   def destroy

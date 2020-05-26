@@ -1,7 +1,5 @@
 class ClientSerializer < ActiveModel::Serializer
-  attributes :id, :firstName, :lastName, :email, :user_id, :gender, :status, :created_at
-
-  # has_one :user
+  attributes :id, :firstName, :lastName, :email, :user_id, :gender, :phone, :status, :created_at
 
   # def user
   #   {

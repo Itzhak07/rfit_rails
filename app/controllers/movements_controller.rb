@@ -2,6 +2,7 @@ class MovementsController < ApplicationController
   before_action :set_movement, only: [:show, :edit, :update, :destroy]
   before_action :get_user_token, only: [:index, :create, :update]
   skip_before_action :verify_authenticity_token, :only => [:index, :create, :update, :destroy]
+
   def index
    movements = Movement.all 
    render json: movements, status: :ok
@@ -11,16 +12,18 @@ class MovementsController < ApplicationController
     new_movement = Movement.new(movement_params)
 
     if new_movement.save
-      :index
+      index
     else 
       render json: new_movement.errors, status: :unprocessable_entity
     end
   end
 
   def show
+   render json:@movement
   end
 
   def update
+    
   end
 
   def destroy

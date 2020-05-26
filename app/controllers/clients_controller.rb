@@ -5,7 +5,7 @@ class ClientsController < ApplicationController
 
   # GET /clients
   def index
-    render json: clients_by_user
+  clients_by_user
   end
 
   # GET /clients/:id
@@ -14,7 +14,7 @@ class ClientsController < ApplicationController
 
   def clients_by_user
     clients = Client.where(user_id: @current_user_id)
-    clients
+    render json:clients, status: :ok
   end
 
 

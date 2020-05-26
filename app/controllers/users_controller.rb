@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
-  before_action :get_user_token, only: [:get_user, :update, :destroy]
+  before_action :get_user_token, only: [:get_user, :update, :destroy, :index]
+  before_action :set_user, only:[:update]
   skip_before_action :verify_authenticity_token, :only => [:create, :update, :destroy, :login, :get_user]
 
   # GET /users
   def index
-    @users = User.all
-    render json: @users, status: :ok
+    render json: @current_user
   end
 
   # GET /users/{id}
@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   end
 
   # POST /users/login (Login)
+
   def login
     @user = User.find_by_email(params[:email])
 
@@ -75,7 +76,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.inclueds(:clients, :workouts).find(params[:id])
     end
 
 
